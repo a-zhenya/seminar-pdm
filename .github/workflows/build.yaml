@@ -4,7 +4,6 @@ on:
     workflows: ["Run tests"]
     branches: [master]
     types:
-    sdfdsfasdfa"ddddd
       - completed
 jobs:
   build:
