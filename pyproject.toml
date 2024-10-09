@@ -25,7 +25,9 @@ build-backend = "pdm.backend"
 distribution = true
 
 [tool.ruff]
-show-fixes = true
+lint.select = ["E", "F", "ERA", "T", "I"]
+lint.ignore = ["E401"]
+lint.fixable = ["F401", "I"]
 line-length = 120
 
 [tool.pytest.ini_options]
