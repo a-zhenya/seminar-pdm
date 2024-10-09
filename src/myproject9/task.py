@@ -1,5 +1,6 @@
 def do_something():
-    print("Something is done")
+    print(
+        "Something is done")
 
 
 def add_two_numbers(a, b):
