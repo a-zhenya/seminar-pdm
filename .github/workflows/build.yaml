@@ -1,0 +1,28 @@
+name: Build package
+on:
+  workflow_run:
+    workflows: ["Run tests"]
+    branches: [master]
+    types:
+      - completed
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    steps:
+    - name: Check out
+      uses: actions/checkout@v4
+    - name: Setup PDM
+      uses: pdm-project/setup-pdm@v4
+      with:
+        python-version: 3.9
+        cache: true
+
+    - name: Build package
+      run: pdm build
+
+    - name: Upload Wheel
+      uses: actions/upload-artifact@v4
+      with:
+        name: myproject
+        path: dist/*.whl
