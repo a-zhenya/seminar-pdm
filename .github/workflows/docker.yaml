@@ -50,12 +50,19 @@ jobs:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_TOKEN }}
 
+    - name: Extract repository name
+      run: |
+        echo "REPO_BASENAME=$(echo $GITHUB_REPOSITORY | cut -d/ -f2)" >> $GITHUB_ENV
+        cat $GITHUB_ENV
+      env:
+        GITHUB_REPOSITORY: ${{ github.repository }}
+
     - name: Build and push Docker image
       uses: docker/build-push-action@v6
       with:
         context: .
         push: true
-        tags: "${{ secrets.DOCKER_USERNAME }}/${{ github.repository.replace(github.repository_owner + '/', '') }}"
+        tags: ${{ secrets.DOCKER_USERNAME }}/${{ env.REPO_BASENAME }}
 
     - name: Notify the user about the new image
       uses: appleboy/telegram-action@master
