@@ -71,6 +71,6 @@ jobs:
         token: ${{ secrets.TELEGRAM_TOKEN }}
         format: markdown
         message: |
-          Docker image `${{ secrets.DOCKER_USERNAME }}/${{ github.repository | replace(github.repository_owner, "") }}` was built and pushed to Docker Hub
+          Docker image `${{ secrets.DOCKER_USERNAME }}/${{ env.REPO_BASENAME }}` was built and pushed to Docker Hub
           Commit to repository `${{ github.repository }}` by `${{ github.actor }}`
           See changes: https://github.com/${{ github.repository }}/commit/${{github.sha}}
