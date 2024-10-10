@@ -13,11 +13,13 @@ jobs:
     steps:
     - name: Check out
       uses: actions/checkout@v4
+
     - name: Setup PDM
       uses: pdm-project/setup-pdm@v4
       with:
         python-version: 3.9
         cache: true
+
     - name: Download artifact (built package)
       uses: actions/github-script@v6
       with:
@@ -41,6 +43,7 @@ jobs:
 
     - name: Unzip artifact
       run: mkdir -p dist && unzip -jo -d dist myproject.zip '*.whl'
+
     - name: Install the package
       run: pip install dist/*.whl
 
@@ -53,7 +56,6 @@ jobs:
     - name: Extract repository name
       run: |
         echo "REPO_BASENAME=$(echo $GITHUB_REPOSITORY | cut -d/ -f2)" >> $GITHUB_ENV
-        cat $GITHUB_ENV
       env:
         GITHUB_REPOSITORY: ${{ github.repository }}
 
